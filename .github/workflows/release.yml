@@ -58,13 +58,14 @@ jobs:
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: v2 -> v2/target
+          workspaces: './src-tauri -> target'
 
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-          cache-dependency-path: v2/package-lock.json
+          #cache-dependency-path: v2/package-lock.json # 好像会报错, 去掉这个, 参考官方的增加下面的 https://tauri.app/v1/guides/building/cross-platform
+          cache: 'npm'
 
       - name: Install apt dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
